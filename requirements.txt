@@ -1,0 +1,9 @@
+Python 3.10+
+Libraries:
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+imblearn
+scipy
