@@ -8,7 +8,7 @@ hyperparameters:
 data:
   raw_data_path: "data/raw/"
   processed_data_path: "data/processed/"
-  interim_data_path: "data/interim/"
+  interim_data_path: "data/readformodeling/"
 
 sampling:
   method: "SMOTE"
