@@ -1,0 +1,31 @@
+hyperparameters:
+  learning_rate: 0.001
+  batch_size: 32
+  num_epochs: 50
+  model_type: "ensemble"
+  random_seed: 42
+
+data:
+  raw_data_path: "data/raw/"
+  processed_data_path: "data/processed/"
+  interim_data_path: "data/interim/"
+
+sampling:
+  method: "SMOTE"
+  oversampling_ratio: 1.0
+
+evaluation:
+  metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1_score"
+    - "roc_auc"
+
+logging:
+  log_level: "INFO"
+  log_file: "experiments/runs/experiment.log"
+
+explainability:
+  method: "SHAP"
+  shap_explainer_type: "TreeExplainer"
