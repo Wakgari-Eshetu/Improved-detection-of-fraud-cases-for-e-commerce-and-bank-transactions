@@ -1,2 +1,6 @@
-.data
-.modelsave
+data/
+models/
+*.csv
+*.pkl
+*.h5
+*.joblib
