@@ -1,13 +1,15 @@
-def clean_data(df):
-   
-    # Remove duplicates
+# src/preprocessing/clean.py
+import pandas as pd
+
+def drop_duplicates(df: pd.DataFrame) -> pd.DataFrame:
     df = df.drop_duplicates()
-    
-    # Correct data types (example)
-    # df['transaction_date'] = pd.to_datetime(df['transaction_date'])
-    # df['amount'] = df['amount'].astype(float)
-    
-    # Handle missing values (example)
-    # df['amount'].fillna(df['amount'].mean(), inplace=True)
-    
+    print(f"[INFO] Duplicates removed. New shape: {df.shape}")
+    return df
+
+def correct_dtypes(df: pd.DataFrame) -> pd.DataFrame:
+    # Convert timestamps to datetime
+    if 'signup_time' in df.columns:
+        df['signup_time'] = pd.to_datetime(df['signup_time'])
+    if 'purchase_time' in df.columns:
+        df['purchase_time'] = pd.to_datetime(df['purchase_time'])
     return df

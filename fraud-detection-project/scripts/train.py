@@ -1,10 +1,26 @@
+# scripts/train.py
+
 import argparse
 import pandas as pd
-from src.data.load_data import load_data
-from src.data.sampling import handle_class_imbalance
-from src.models.trainer import train_model
+from sklearn.model_selection import train_test_split
+from src.models.trainer import train_and_evaluate
 from src.utils.config import Config
 from src.utils.logger import setup_logger
+from imblearn.over_sampling import SMOTE
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout
+
+def build_model(input_dim):
+    """Builds a simple Keras model for binary classification."""
+    model = Sequential([
+        Dense(128, input_dim=input_dim, activation='relu'),
+        Dropout(0.3),
+        Dense(64, activation='relu'),
+        Dropout(0.2),
+        Dense(1, activation='sigmoid')  # binary classification
+    ])
+    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+    return model
 
 def main(config_path):
     # Set up logging
@@ -13,17 +29,33 @@ def main(config_path):
     # Load configuration
     config = Config(config_path)
 
-    # Load data
-    logger.info("Loading data...")
-    data = load_data(config.data_path)
+    # -------------------------------
+    # Load ready-for-training data
+    # -------------------------------
+    logger.info("Loading ready-for-training data...")
+    df = pd.read_csv(config.data_path)  # config.data_path should point to Fraud_Data_ready.csv
 
-    # Handle class imbalance
-    logger.info("Handling class imbalance...")
-    data_balanced = handle_class_imbalance(data, config.imbalance_strategy)
+    target_col = config.target_col
+    X = df.drop(columns=[target_col])
+    y = df[target_col]
 
+    logger.info(f"Data shape: {X.shape}, Target shape: {y.shape}")
+
+    # -------------------------------
+    # Optionally handle class imbalance again if needed
+    # (usually already done in build_features)
+    # -------------------------------
+    if getattr(config, "rebalance", False):
+        logger.info("Applying SMOTE for class imbalance...")
+        smote = SMOTE(random_state=42)
+        X, y = smote.fit_resample(X, y)
+        logger.info(f"Shape after SMOTE: {X.shape}")
+
+    # -------------------------------
     # Train model
+    # -------------------------------
     logger.info("Training model...")
-    model = train_model(data_balanced, config.model_params)
+    model = train_model(X, y, config.model_params)
 
     logger.info("Model training completed.")
 

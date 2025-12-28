@@ -9,7 +9,7 @@ class Config:
 
     # Data settings
     DATA_DIR = os.path.join("data", "raw")
-    INTERIM_DATA_DIR = os.path.join("data", "interim")
+    READY_DATA_DIR = os.path.join("data", "readyfortraining")
     PROCESSED_DATA_DIR = os.path.join("data", "processed")
 
     # Model settings
