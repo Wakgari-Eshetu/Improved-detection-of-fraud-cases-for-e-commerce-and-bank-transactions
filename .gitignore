@@ -4,3 +4,4 @@ models/
 *.pkl
 *.h5
 *.joblib
+# ignore raw/large datasets\n/data/raw/*\n/data/processed/*\n/modelsave/*
