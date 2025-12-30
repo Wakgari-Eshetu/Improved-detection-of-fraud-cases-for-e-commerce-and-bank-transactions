@@ -9,3 +9,5 @@ lime
 jupyter
 pyyaml
 loguru
+xgboost
+joblib

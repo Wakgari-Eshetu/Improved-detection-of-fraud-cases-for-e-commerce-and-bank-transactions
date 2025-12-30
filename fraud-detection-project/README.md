@@ -66,6 +66,7 @@ This project aims to improve fraud detection in e-commerce and bank transactions
 
 - Use the Jupyter notebooks for interactive analysis and development.
 - Run the scripts in the `scripts/` directory for batch processing tasks.
+  - Example: `python scripts/explain_shap.py --data data/processed/Fraud_Data_processed.csv --output outputs/explainability` to generate SHAP explainability artifacts and a short report (Task 3).
 - Refer to the documentation in the `docs/` directory for detailed information on model performance and experiments.
 
 ## Contributing

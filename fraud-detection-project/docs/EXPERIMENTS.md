@@ -57,6 +57,13 @@ This document outlines the various experiments conducted during the fraud detect
 - **Methods**: Used SHAP values to analyze the contribution of each feature.
 - **Results**: Provided insights into which features most influence fraud detection.
 
+> Run the explainability script to regenerate SHAP artifacts locally:
+>
+> ```bash
+> python scripts/explain_shap.py --data data/processed/Fraud_Data_processed.csv --output outputs/explainability
+> ```
+> This saves global and per-instance SHAP visualizations and a short `docs/TASK_3_SHAP.md` report.
+
 ### Experiment 10: LIME Analysis
 - **Objective**: Generate local explanations for individual predictions.
 - **Methods**: Implemented LIME to explain model predictions on sample transactions.
